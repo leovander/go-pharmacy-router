@@ -6,13 +6,13 @@ import (
 )
 
 type PharmacyInsurance struct {
-	inventory map[drug.DrugId]int
+	Inventory map[drug.DrugId]int
 }
 
 func (phc PharmacyInsurance) CheckInventory(drug drug.DrugId) (int, error) {
 	fmt.Printf("Check Inventory for %s\n", drug)
 
-	if quantity, ok := phc.inventory[drug]; ok {
+	if quantity, ok := phc.Inventory[drug]; ok {
 		return quantity, nil
 	} else {
 		return -1, fmt.Errorf("%s not found in inventory", drug)
@@ -28,7 +28,7 @@ func (phc PharmacyInsurance) DispenseDrug(drug drug.DrugId) error {
 	}
 
 	if amount > 0 {
-		phc.inventory[drug] -= 1
+		phc.Inventory[drug] -= 1
 	}
 
 	return nil
@@ -38,10 +38,10 @@ func (phc PharmacyInsurance) LoadInventory(drug drug.DrugId, quantity int) {
 	_, err := phc.CheckInventory(drug)
 
 	if err != nil {
-		phc.inventory[drug] = 0
+		phc.Inventory[drug] = 0
 	}
 
-	phc.inventory[drug] += quantity
+	phc.Inventory[drug] += quantity
 }
 
 func (phc PharmacyInsurance) DisplayFullInventory() {
